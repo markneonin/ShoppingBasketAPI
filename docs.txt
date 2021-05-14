@@ -1,0 +1,133 @@
+Регистрация:
+    URL: 'http://<host>/api/register/'
+    METHOD: POST
+    REQUEST BODY:
+
+    {
+    'username': 'name',
+    'password': '12345678'
+    }
+
+    RESPONSE BODY:
+
+    {
+    'Your API_key': 'df5b9ecc909fcf9c9d98442f2924cd3dbba9e2c161378fe62322e6fe4bc4f0ce'
+    }
+
+    Требования к длине пароля: не короче 8 символов
+
+
+
+Сгенерировать новый API-key:
+    URL: 'http://<host>/api/new_api_key/'
+    METHOD: POST
+    REQUEST BODY:
+
+    {
+    'username': 'name',
+    'password': '12345678'}
+
+    RESPONSE BODY:
+
+    {
+    'Your API_key': '0f5b9ecc909fcf848d98442f2924cd3dchba9e2c161378fe62322e6fe4bc4f0ce'
+    }
+
+
+Добавить покупки в список:
+    URL: 'http://<host>/api/goods/'
+    METHOD: PUT
+    REQUEST BODY:
+
+    {
+    'goods': ['колбаса', 'сыр', 'пиво', ...]
+    }
+
+    REQUEST PARAMS:
+
+    {
+    'username': 'name',
+    'API_key': 'key'
+    }
+
+
+Получить список покупок:
+    URL: 'http://<host>/api/goods/'
+    METHOD: GET
+
+    REQUEST PARAMS:
+
+    {
+    'username': 'name',
+    'API_key': 'key'
+    'status': 'complete' / 'in_progress' / 'all'
+    }
+
+    RESPONSE BODY:
+
+    {
+    'goods':
+    [{
+    'good_id': 1,
+    'text': 'колбаса',
+    'created': '2021-05-14 13:33:26',
+    'status': 'in_progress',
+    'completed': 'None',
+    'price': None}, ...]
+    }
+
+
+Завершить покупку в списке:
+    URL: 'http://<host>/api/goods/'
+    METHOD: PUT
+    REQUEST BODY:
+    {
+    'goods':
+    [{
+    'good_id': 1,
+    'price': 100.0
+    }, ... ]
+    }
+
+    REQUEST PARAMS:
+
+    {
+    'username': 'name',
+    'API_key': 'key'
+    }
+
+
+Удалить покупки из списка:
+    URL: 'http://<host>/api/goods/'
+    METHOD: DELETE
+    REQUEST BODY:
+    {
+    'goods': [<good_id>, ...]
+    }
+
+    REQUEST PARAMS:
+
+    {
+    'username': 'name',
+    'API_key': 'key'
+    }
+
+
+Изменить информацию о покупке:
+    URL: 'http://<host>/api/goods/'
+    METHOD: PATCH
+    REQUEST BODY:
+
+    {
+    'good_id': 3,
+    'text': 'два пива'
+    'price': 100.0, // Только для завершенных покупок
+    }
+
+    REQUEST PARAMS:
+
+    {
+    'username': 'name',
+    'API_key': 'key'
+    }
+

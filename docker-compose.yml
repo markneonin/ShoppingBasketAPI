@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mariadb:
+    build:
+      context: ./docker/mariadb
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: 'roottoor'
+      MYSQL_ROOT_HOST: '127.0.0.1'
+      MYSQL_DATABASE: 'shopping_basket_db'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'toor'
+    volumes:
+      - ./docker/mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3307"
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - mariadb
+    ports:
+      - "8000:8000"
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+      - mariadb
+    ports:
+      - "80:80"
+
